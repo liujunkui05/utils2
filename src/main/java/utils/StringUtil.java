@@ -95,6 +95,29 @@ public class StringUtil {
 		
 		return result.toString();
 	}
+	/**
+	 * 获取n位随机数字
+	 * @param length
+	 * @return
+	 */
+	public static String getNumber(int length){
+		Random random = new Random();
+		StringBuffer result = new StringBuffer();
+		char[] words = {'1','2','3','4','5','6','7','8','9','0'};
+		for(int i = 0 ; i < length ; i++){
+			int index = random.nextInt(10);
+			String word = words[index] + "";
+			if(!StringUtil.isNumber(word)){
+				int bigorsmall = random.nextInt();
+				if(bigorsmall % 2 == 0){
+					word = word.toLowerCase();
+				}
+			}
+			result.append(word);
+		}
+		
+		return result.toString();
+	}
 	//获取n个随机中文字符串
 
 	/**
@@ -104,7 +127,7 @@ public class StringUtil {
 	 */
 	public static boolean isNumber(String str){
 		boolean blank = StringUtil.isEmpty(str);
-		if(blank){
+		if(!blank){
 			Pattern pattern = Pattern.compile("^\\d*$");
 			Matcher matcher = pattern.matcher(str);
 			if(matcher.matches()){
@@ -116,7 +139,17 @@ public class StringUtil {
 			return false;
 		}
 	}
+	/**
+	 * 获取start-end 位数字
+	 */
+	public static Integer getNum(Integer start,Integer end){
+		int num=0;
+		for (int i = start; i <= end; i++) {
+			 num=(int) (Math.random()*(end-start+1)+start);
+		}
+		return num;
 	
+	}
 	
 	/**
 	 * 获取n个随机中文字符串
@@ -141,9 +174,32 @@ public class StringUtil {
         }
         return str.toString();
   }
+	/**
+	 * 获取n个随机中文字符串
+	 * @return
+	 */
+	public static String getChinese(Integer n) {
+        StringBuilder str = new StringBuilder();
+        int hs = 0 ;
+        int ls = 0; 
+        Random random = new Random();
+        for(int i = 0 ; i < n ; i++){
+	        hs = (176 + Math.abs(random.nextInt(39))); 
+	        ls = (161 + Math.abs(random.nextInt(93)));
+	        byte[] b = new byte[2];
+	        b[0] = (new Integer(hs).byteValue());
+	        b[1] = (new Integer(ls).byteValue());
+	        try {
+	          str.append(new String(b, "GBk")); 
+	        } catch (UnsupportedEncodingException e) {
+	          e.printStackTrace();
+	        }
+        }
+        return str.toString();
+  }
 	
 	public static void main(String[] args) {
-		System.out.println(getAChinese());
+		System.out.println(getNumber(11));
 		
 	}
 	
